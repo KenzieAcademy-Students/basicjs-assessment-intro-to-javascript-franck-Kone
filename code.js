@@ -9,38 +9,41 @@ console.log(pages[0]);
 let endingPages = [4, 9, 13, 17, 19, 20];
 let currentPage = 0;
 // Your Code Here.
+function userHistory(currentPage) {
 
-let findNanPage = [], newHistory = `<p>${pages[currentPage]}</p>`
+    for (let page = 0; page < endingPages.length; page++) {
+        if (currentPage === endingPages[page]) {
+            return true
+        }
+    }
+    return false
+}
+let newHistory = `<p>${pages[currentPage]}</p>`
 
 while (currentPage !== null) {
 
-    findNanPage.push(currentPage)
- 
-    if (userHistory(currentPage) === true) {
-       
+    if (userHistory(currentPage)) {
+
         newHistory += "<h2>The End!</h2>"
         // lines 22, 23, 24 and 25 will remove the paragraphs including currentPage === NaN from the variable newHistory when the user will press 'cancel' or 'ok' button without any input.  
-        if (findNanPage.includes(NaN)){
-            newHistory = newHistory.replace(`<P>You turned to the page ${currentPage}</P> <p>${pages[currentPage]}</p> `, '')
-        }
+
         document.write(newHistory)
         currentPage = null
-    } else if (userHistory(currentPage) === false) {
+    } else if (!userHistory(currentPage)) {
+        if (currentPage >= 0) {
+            currentPage = parseInt(prompt(pages[currentPage] + ' What page would you like to go to ?'))
 
-        currentPage = parseInt(prompt(pages[currentPage] + ' What page would you like to go to ?'))
+        } else {
+            newHistory += "<h2>The End!</h2>"
+            document.write(newHistory)
+
+            currentPage = null
+        }
     }
+    if (currentPage >= 0) {
+        newHistory += `<P>You turned to the page ${currentPage}</P> <p>${pages[currentPage]}</p> `
 
-    newHistory += `<P>You turned to the page ${currentPage}</P> <p>${pages[currentPage]}</p> `
+    }
 }
 
-function userHistory(currentPage) {
-    
-    if (endingPages.find(page => page === currentPage) || findNanPage.includes(NaN) ) {
 
-        return true
-    } else if (!endingPages.find(page => page === currentPage)) {
-
-        return false
-    }
-
-}
